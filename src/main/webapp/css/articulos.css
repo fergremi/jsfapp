@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+    padding: 0 2em;
+}
+h1 {
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center;
+    color: white;
+    border: dotted;
+    border-color: white;
+    background-image: url(fondos/fondoRelleno2.jpg);
+    background-repeat: repeat-x;
+}
+h2 {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    color: #F60;
+}
+h3 {
+    font-family: "MS Serif", "New York", serif;
+    color: #69F;
+    text-align: center;
+}
+p.articulo {
+    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+    color: green;
+    font-size: larger;
+}
+p.descripcion {
+    font-family: "Comic Sans MS", cursive;
+    color: yellow;
+    text-align: justify;
+    font-size: smaller;
+}
+p.precio {
+    font-family: "Courier New", Courier, monospace;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+    background-image: url(fondos/fondoRelleno3.jpg);
+    background-repeat: repeat-x;
+}
+p.enlace {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    text-align: left;
+    color: white;
+    font-weight: bolder;
+}
+p.ref {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+}
+table.precios {
+    background-image: url(fondos/fondoRelleno3.jpg);
+    background-repeat: repeat-x;
+    border-color: white;
+}
+.azul {
+    color: blue;
+    font-weight: bold;
+}
+.pvp {
+    font-family: "Courier New", Courier, monospace;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+}

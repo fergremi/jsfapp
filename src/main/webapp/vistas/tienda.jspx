@@ -1,0 +1,138 @@
+<%-- 
+    Document   : tienda
+    Created on : 12-may-2015, 22:23:06
+    Author     : fergremi
+--%>
+
+<%@ include file="/WEB-INF/vistas/include.jsp" %>
+
+<%@page import="com.ruprocon.springapp.modelo.Producto"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Tienda</title>
+        <link rel="stylesheet" href="css/formularios.css" type="text/css"/>
+        <link rel="stylesheet" href="css/menu.css" type="text/css"/>
+        <link rel="stylesheet" href="css/breadcrumb.css" type="text/css"/>
+        <link rel="stylesheet" href="css/tablaTienda.css" type="text/css"/>
+        <script type="text/javascript" src="js/comprobaciones.js"></script>
+    </head>
+    <body>
+        <div id="breadcrumb" class="breadcrumb">
+            <table width="100%" class="breadcrumb">
+                <tr>
+                    <td><strong>Servicios de la tienda virtual</strong></td>
+                </tr>
+            </table>
+        </div>
+        <div id="serviciosTienda" align="center">
+            <%
+            String error = (String)request.getSession().getAttribute("error");
+            if ((error != "")&&(error != null)) // avisar del error
+            {%>
+                <script type="text/javascript">alert("<%=error%>");</script>
+          <%}
+            request.getSession().setAttribute("error", ""); // borrar el error despues del aviso
+            %>
+            <script type="text/javascript">Cargar('menu.jsp','menu');</script>
+            <h2>Información de su carrito</h2>
+            <% // Si el carrito está vacío
+            List <Producto> carrito = (List)request.getSession().getAttribute("carrito");
+            if ((carrito == null) || (carrito.size() == 0)) {%>
+                <h3>Su carrito está vacío</h3>
+                <br/><br/>
+                <p class="p">Añada productos desde la sección <a href="#" onclick="Cargar('productos.jsp','capa1');">Productos</a></p>
+
+          <%}
+            else // Si hay productos en el carrito
+            {%>
+                <table class="rwd-table">
+                    <tr>
+                        <th class="cabecera" style="text-align: left">Producto</th>
+                        <th class="cabecera">Cantidad</th>
+                        <th class="cabecera">Precio Unitario</th>
+                        <th class="cabecera">Subtotal</th>
+                    </tr>
+                    <%
+                    //ruprocon.accesoBD baseDatos = new ruprocon.accesoBD();
+                    int i = 0;
+                    while (i < carrito.size()) {
+                        Producto aux = (Producto)carrito.get(i);
+
+                        int idProducto = aux.getIdProducto();
+                        int cantidad = aux.getStock();
+                        String nombre = aux.getNombre();
+                        float precio = aux.getPrecio();
+                        DecimalFormat format = new DecimalFormat("#,###.00");
+
+                        int stock = 0;//baseDatos.getStockProductoBD(idProducto);
+                        %>
+                        <tr class="rwd">
+                            <td class="variosL" style="text-align: left;"><%=nombre%></td>
+                            <td class="variosR"><%=cantidad%></td>
+                            <td class="variosR"><%=format.format(precio)%> €/ud</td>
+                            <td class="variosR"><%=format.format(precio*cantidad)%> €</td>
+                            <td>
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <form name="formAddProd" method="post" onsubmit="ProcesarForm(this,'addCestaTienda','capa1');return false;">
+                                                <input type="hidden" name="idProducto" value="<%=idProducto%>"/>
+                                                <input type="hidden" name="nombre" value="<%=nombre%>"/>
+                                                <input type="hidden" name="precio" value="<%=precio%>"/>
+                                                <table width="100%">
+                                                    <tr>
+                                                        <%
+                                                        if ((stock > cantidad) && (stock > 0))  // Hay suficiente stock para añadir más, mostrar botón para añadir al carrito
+                                                        {%>
+                                                            <td><p class="c">Añadir: <input name="cantidad" type="text" size="1" value="1" onblur="comprobarCantidad();"/>
+                                                            <input type="submit" value="Añadir al carrito"/></p></td>
+                                                        <%}
+                                                        else
+                                                        {%>
+                                                            <td><input type="submit" value="Añadir al carrito" disabled="disabled"/></td>
+                                                        <%}%>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form name="formRemoveProd" method="post" onsubmit="ProcesarForm(this,'removeCestaTienda','capa1');return false;">
+                                                <input type="hidden" name="idProducto" value="<%=idProducto%>"/>
+                                                <%
+                                                if (cantidad > 0) // hay suficiente stock
+                                                {%>
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td><p class="c">Quitar: <input name="cantidad" type="text" size="1" value="1" onblur="comprobarCantidad();"/>
+                                                            <input type="submit" value="Quitar del carrito"/></p></td>
+                                                        </tr>
+                                                    </table>
+                                                <%}%>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <%
+                        i++;
+                    }%>
+                </table>
+                <%
+                //if (baseDatos.comprobarDatosEnvioUsuarioBD("user", usuarioActual).equals(""))  //  Los datos de envío del usuario se encuentran disponibles en la BD
+                {%>
+                    <a href="#" onclick="Cargar('enviado.jsp','capa1');">Seguir con el trámite</a>
+                <%}
+                //else    //  Los datos de envío del usuario no están almacenados en la BD
+                {%>
+                    <br/><br/>
+                    <p class="p">Es necesario que introduzca sus datos personales para poder continuar con el trámite de envío: </p>
+                    <a href="#" onclick="Cargar('envio.jsp','capa1');">Introducir datos de envío</a>
+                <%}
+            }%>
+        </div>
+    </body>
+</html>

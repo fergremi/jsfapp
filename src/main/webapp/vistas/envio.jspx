@@ -1,0 +1,30 @@
+<%-- 
+    Document   : envio
+    Created on : 12-may-2015, 23:23:06
+    Author     : fergremi
+--%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Datos de envío del pedido</title>
+        <link rel="stylesheet" href="formularios.css" type="text/css"/>
+        <script type="text/javascript" src="libCapas.js"></script>
+        <script type="text/javascript" src="comprobaciones.js"></script>
+    </head>
+    <body>
+                <h2>Rellene los siguientes campos y seleccione un tipo de pago para proceder con el trámite del pedido:</h2>
+                <form name="formEnvio" method="post" onsubmit="ProcesarForm(this,'datosEnvio','capa1');return false;">
+                    <input type="hidden" name="usuario" value="<c:out value="${usuario}"/>"/>
+                    <p class="cabecera">Nombre: <input name="nombre" type="text" size="20" autofocus="" onblur="comprobarNombre();"/></p>
+                    <p class="cabecera">Apellidos: <input name="apellidos" type="text" size="20" onblur="comprobarApellidos();"/></p>
+                    <p class="cabecera">Dirección: <input name="direccion" type="text" size="20" onblur="comprobarDireccion();"/></p>
+                    <p class="cabecera">Provincia: <input name="provincia" type="text" size="20" onblur="comprobarProvincia();"/></p>
+                    <p class="cabecera">Ciudad: <input name="ciudad" type="text" size="20" onblur="comprobarCiudad();"/></p>
+                    <p class="cabecera">Código postal: <input name="cp" type="text" size="20" onblur="comprobarCP();"/></p>
+                    <p class="cabecera">Teléfono: <input name="telefono" type="text" size="20" onblur="comprobarTlf();"/></p>
+                    <br/>
+                    <p><input type="submit" value="Enviar datos de envío"/></p>
+                </form>
+    </body>
+</html>

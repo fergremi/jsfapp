@@ -1,0 +1,46 @@
+<%-- 
+    Document   : admin
+    Created on : 12-may-2015, 22:23:06
+    Author     : fergremi
+--%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Administración</title>
+        <link rel="stylesheet" href="formularios.css" type="text/css"/>
+        <link rel="stylesheet" href="menu.css" type="text/css"/>
+        <link rel="stylesheet" href="breadcrumb.css" type="text/css"/>
+        <script type="text/javascript" language="javascript" src="libCapas.js"></script>
+        <script type="text/javascript" src="comprobaciones.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">Cargar('menu.jsp','menu');</script>
+        <div id="breadcrumb" class="breadcrumb">
+            <table width="100%" class="breadcrumb">
+                <tr>
+                    <td>
+                        <p class="breadcrumb">
+                            <a class="breadcrumb" href="#" onclick="Cargar('intranet.jsp','capa1');return false;" title="Ir a la página de la intranet" ><span>Zona para empleados</span></a>
+                             > 
+                            <strong>Administradores</strong>
+                        </p>                        
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="admin">
+            <div align="center">
+                <script type="text/javascript">Cargar('menu.jsp','menu');</script>
+                <div id="menuGestion" align="center">
+                    <table width="100%" border="0" align="center" cellpadding="5" cellspacing="3">
+                        <tr>
+                            <td align="center"><a href="#" onclick="Cargar('gestionUsuarios.jsp','capaGestion');return false;">Gestión de usuarios</a></td>
+                            <td align="center"><a href="#" onclick="Cargar('gestionProductos.jsp','capaGestion');return false;">Gestión de productos</a></td>     
+                        </tr>
+                    </table>                
+                </div>
+                <div id="capaGestion" align="center"></div>
+        </div>
+     </body>
+ </html>

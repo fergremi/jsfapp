@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+    background-image: url(fondos/fondo5.jpg);
+    padding: 0 2em;
+}
+h1 {
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center;
+    color: white;
+    border: dotted;
+    border-color: white;
+    background-image: url(fondos/fondoRelleno4.jpg);
+    background-repeat: repeat-x;
+}
+h2 {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    color: #6CF;
+}
+p.historia {
+    font-family: "MS Serif", "New York", serif;
+    text-align: justify;
+    color: #9F3;
+    font-weight: bolder;
+    font-size: larger;
+}
+p.aux {
+    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+    color: #F00;
+    font-weight: bolder;
+    font-size: larger;
+}

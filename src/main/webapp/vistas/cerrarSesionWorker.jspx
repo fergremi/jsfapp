@@ -1,0 +1,37 @@
+<%-- 
+    Document   : cerrarSesionWorker
+    Created on : 13-may-2015, 2:10:32
+    Author     : fergremi
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Cerrar sesión del trabajador</title>
+        <link rel="stylesheet" href="articulos.css" type="text/css"/>
+        <script type="text/javascript" language="javascript" src="libCapas.js"></script>
+        <script>
+            function mostrarNotificacion() {
+                document.getElementById('notificaciones').style.visibility = 'visible';
+            }
+            function autoOcultar() {
+                document.getElementById('notificaciones').style.visibility = 'hidden';
+            }
+            setTimeout('autoOcultar()', 5000);
+        </script>
+    </head>
+    <body>
+        <script type="text/javascript">mostrarNotificacion();</script>
+        <table>
+            <tr>
+                <td rowspan="2"><img alt="Cerrar sesion" src="/RUPROCON/img/cerrarSesion.png" width="100%"/></td>
+                <td><h2 style="font-size: smaller;">Sesión del trabajador cerrada</h2></td>
+            </tr>
+            <tr>
+                <td><h3 style="font-size: small;">Adiós, <c:out value="${trabajador}"/></h3></td>
+            </tr>
+        </table>
+    </body>
+</html>

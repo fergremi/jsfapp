@@ -1,0 +1,150 @@
+<%-- 
+    Document   : perfilUsuario
+    Created on : 27-may-2015, 10:30:32
+    Author     : fergremi
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Perfil del Usuario</title>
+        <link rel="stylesheet" href="formularios.css" type="text/css"/>
+        <link rel="stylesheet" href="breadcrumb.css" type="text/css"/>
+        <script type="text/javascript" src="libCapas.js"></script>
+        <script type="text/javascript" src="comprobaciones.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">Cargar('menu.jsp','menu');</script>
+        <div id="breadcrumb" class="breadcrumb">
+            <table width="100%" class="breadcrumb">
+                <tr>
+                    <td>
+                        <strong>Perfil del Usuario</strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="perfilUsuario" align="center">
+            
+                <table width="30%" border="0" align="center" cellpadding="5" cellspacing="3">
+                    <tr>
+                        <td><img alt="SOLO personal autorizado" src="/RUPROCON/fondos/staff.jpg" width="30%"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form name="formLogin" method="post" onsubmit="ProcesarForm(this,'loginTienda','capa1');return false;">
+                                <input type="hidden" name="tipoAcceso" value="Acceso"/>
+                                <br/>
+                                <table>
+                                    <tr>
+                                        <th class="cabecera">Usuario:</th>
+                                        <td><input name="usuario" type="text" size="20" autofocus="" onblur="comprobarUsuario();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="cabecera">Contraseña:</th>
+                                        <td><input type="password" maxlength="20" name="clave" size="20" onblur="comprobarClave();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p"><input type="submit" value="Identificarse"/></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            
+                <table width="30%" align="center" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td colspan="2">
+                            </br></br>
+                            <h1>Perfil de </h1>
+                            </br></br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h2>Datos de Login</h2>
+
+                                <form name="formLogin" method="post" onsubmit="ProcesarForm(this,'modificarUsuario','capa1');return false;">
+                                    <input type="hidden" name="idUsuario" value=""/>
+                                    <input type="hidden" name="tipoUsuario" value="user"/>
+                                    <table width="100%">
+                                        <tr>
+                                            <th class="varios">Usuario:</th>
+                                            <td><input name="usuario" type="text" value="" size="20" readonly="" disabled="" onblur="comprobarUsuario();"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="varios">Contraseña:</th>
+                                            <td><input type="password" maxlength="20" name="clave" size="20" value="" onblur="comprobarClave();"/></td>     
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="p">
+                                                <br/>
+                                                <input type="submit" value="Modificar login"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            </br>
+                            <h2>Datos personales</h2>
+                            <form name="formLogin" method="post" onsubmit="ProcesarForm(this,'modificarPerfil','capa1');return false;">
+                                <input type="hidden" name="usuario" value=""/>
+                                <input type="hidden" name="tipoUsuario" value="user"/>
+                                <table width="100%">
+                                    <tr>
+                                        <th class="varios">Nombre:</th>
+                                        <td><input name="nombre"  type="text" value="" size="20" onblur="comprobarNombre();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Apellidos:</th>
+                                        <td><input name="apellidos" type="text" value="" size="20" onblur="comprobarApellidos();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Dirección:</th>
+                                        <td><input name="direccion" type="text" value="" size="20" onblur="comprobarDireccion();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Provincia:</th>
+                                        <td><input name="provincia" type="text" value="" size="20" onblur="comprobarProvincia();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Ciudad:</th>
+                                        <td><input name="ciudad" type="text" value="" size="20" onblur="comprobarCiudad();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Código postal:</th>
+                                        <td><input name="cp" type="text" value="" size="20" onblur="comprobarCP();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Teléfono:</th>
+                                        <td><input name="telefono" type="text" value=""size="20" onblur="comprobarTlf();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="p">
+                                            <br/>
+                                            <input type="submit" value="Modificar datos personales"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </td>
+                        <td align="center">
+                            <form method="post" onsubmit="ProcesarForm(this,'eliminarUsuario','capa1');return false;">
+                                <input type="hidden" name="idUsuario" value=""/>
+                                <input type="hidden" name="usuario" value=""/>
+                                <input type="hidden" name="tipoUsuario" value="user"/>
+                                <p><input type="submit" value="Eliminar usuario"/></p>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+    </body>
+</html>

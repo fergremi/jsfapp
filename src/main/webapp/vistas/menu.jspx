@@ -1,0 +1,64 @@
+<%@ include file="/WEB-INF/vistas/include.jsp" %>
+
+<tiles:insertDefinition name="defaultTemplate">
+    <tiles:putAttribute name="menu">
+        <div id="header">
+	        <ul class="menu">
+	            <li><a href="/springapp/inicial.htm"><p class="inicio">Inicio</p></a></li>
+	            <li><a href="/springapp/empresa.htm"><p class="empresa">Empresa</p></a></li>
+	            <li><a href="/springapp/contacto.htm"><p class="contacto">Contacto</p></a></li>
+	            <li><a href="/springapp/productos.htm"><p class="productos">Productos</p></a>
+	                <ul>
+	                        <li><a href="/springapp/productos/productosVenta.htm"><p class="productos">Catálogo</p></a></li>
+	                        <li><a href="/springapp/productos/productosAlquiler.htm"><p class="productos">Alquiler</p></a></li>
+	                </ul>
+	            </li>
+	            <li><a href="/springapp/loginTienda.htm"><p class="tienda">Tienda</p></a>
+	            </li>
+	            <li><a href="/springapp/intranet.htm"><p class="admin">Zona empleados</p></a>
+	                <ul>
+	                        <li><a href="/springapp/intranet/empleados.htm"><p class="admin">Empleado</p></a></li>
+	                        <li><a href="/springapp/intranet/admin.htm"><p class="admin">Administrador</p></a></li>
+	                </ul>
+	            </li>
+	        </ul>
+		    <ul class="menu">
+	            <%
+	            String usuarioActual = (String)request.getSession().getAttribute("usuario");
+	            if ((usuarioActual!=null) && (!usuarioActual.equals("")) && (!usuarioActual.equals("-1")))  //Hay un usuario registrado
+	            {%>
+	                <li><p class="azul">Usuario: <span class="naranja"><%=usuarioActual%></span></p>
+	                        <ul>
+	                            <li><a href="/perfilUsuario.htm"><p class="otro">Modificar datos</p></a></li>
+	                            <li><a href="/cerrarSesionUsuario.htm"><p class="otro">Cerrar Sesión</p></a></li>
+	                        </ul>
+	                </li>
+	          <%}%>
+	
+	            <%
+	            String adminActual = (String)request.getSession().getAttribute("admin");
+	            if ((adminActual!=null) && (!adminActual.equals("")))  //Hay un usuario registrado
+	            {%>
+	                <li class="usuarios"><p class="azul">Administrador: <span class="naranja"><%=adminActual%></span></p>
+	                    <ul>
+	                        <li><a href="/perfilAdmin.htm"><p class="otro">Modificar datos</p></a></li>
+	                        <li><a href="/cerrarSesionAdmin.htm"><p class="otro">Cerrar Sesión</p></a></li>
+	                    </ul>
+	                </li>
+	          <%}%>
+	        
+	            <%
+	            String trabajadorActual = (String)request.getSession().getAttribute("trabajador");
+	            if ((trabajadorActual!=null) && (!trabajadorActual.equals("")))  //Hay un usuario registrado
+	            {%>
+	                <li class="usuarios"><p class="azul">Empleado: <span class="naranja"><%=trabajadorActual%></span></p>
+	                    <ul>
+	                        <li><a href="/perfilWorker.htm"><p class="otro">Modificar datos</p></a></li>
+	                        <li><a href="/cerrarSesionWorker.htm"><p class="otro">Cerrar Sesión</p></a></li>
+	                    </ul>
+	                </li>
+	          <%}%>
+	        </ul>
+		</div>
+    </tiles:putAttribute>
+</tiles:insertDefinition>

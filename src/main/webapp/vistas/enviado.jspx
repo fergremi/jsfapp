@@ -1,0 +1,75 @@
+<%-- 
+    Document   : enviado
+    Created on : 13-may-2015, 22:10:32
+    Author     : fergremi
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Pedido tramitado</title>
+        <link rel="stylesheet" href="productos.css" type="text/css"/>
+        <script type="text/javascript" language="javascript" src="libCapas.js"></script>
+        <script type="text/javascript" src="comprobaciones.js"></script>
+    </head>
+    <body>
+        <br>
+            <h1>Información del pedido con identificador</h1>
+            <h2>DATOS PERSONALES:</h2>
+            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="3">
+				      
+                    <tr>
+                        <td colspan="2"><p class="ref">Nombre: <span class="azul"><c:out value="${usuario.nombre}"/></span></p></td>
+                        <td colspan="2"><p class="ref">Apellidos: <span class="azul"><c:out value="${usuario.apellidos}"/></span></p></td>             					
+                        <td><p class="ref">Dirección: <span class="azul"><c:out value="${usuario.direccion}"/></span></p></td>
+                        <td><p class="ref">Provincia: <span class="azul"><c:out value="${usuario.provincia}"/></span></p></td>
+                        <td><p class="ref">Ciudad: <span class="azul"><c:out value="${usuario.ciudad}"/></span></p></td>
+                        <td><p class="ref">Código postal: <span class="azul"><c:out value="${usuario.cp}"/></span></p></td>					
+                        <td colspan="4"><p class="ref">Teléfono: <span class="azul"><c:out value="${usuario.telefono}"/></span></p></td>
+                    </tr>
+            </table>
+            <br/>
+            <h2>CONTENIDO:</h2>
+            <form name="cart" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post"/> <!-- cambiar sandbox por paypal para hacer oficial -->
+                <input type="hidden" name="cmd" value="_cart"/> <!-- indica a paypal que es una cesta con productos -->
+                <input type="hidden" name="upload" value="1"/> <!-- indica a paypal que la cesta proviene de un tercero (de nuestra web) -->
+                <input type="hidden" name="business" value="ruprocon@ruprocon.es"/> <!-- indica a paypal la cuenta del vendedor (de nuestra web) -->
+                <input type="hidden" name="shopping_url" value="http://localhost:8084/RUPROCON/index.htm"/>
+                <input type="hidden" name="cn" value="Comentarios"/>
+                <input type="hidden" name="currency_code" value="EUR"/>
+                <input type="hidden" name="lc" value="ES"/>
+                <input type="hidden" name="rm" value="2"/> <!-- POST -->
+                <input type="hidden" name="return" value="http://localhost:8084/RUPROCON/tienda/pagado.htm"/>
+                <input type="hidden" name="cbt" value = "Volver a la tienda"/>
+                <input type="hidden" name="cancel_return" value = "http://localhost:8084/RUPROCON/tienda/errorPaypal.htm"/>
+
+                <table border="1" cellpadding="5" cellspacing="3">
+                    <tr>
+                        <td valign="center"><p class="ref">Producto</p></td>
+                        <td valign="center"><p class="ref">Cantidad</p></td>
+                        <td valign="center"><p class="ref">Precio</p></td>
+                    </tr>
+
+<c:forEach items="${model.productos}" var="producto">          
+                        <input type="hidden" name="item_name_<%=1%>" value="<c:out value="${producto.nombre}"/>"/>
+                        <input type="hidden" name="quantity_<%=1%>" value="<c:out value="${producto.cantidad}"/>"/>
+                        <input type="hidden" name="item_number_<%=1%>" value="<c:out value="${producto.idProducto}"/>"/>
+                        <input type="hidden" name="amount_<%=1%>" value="<c:out value="${producto.precio}"/>"/>
+
+                        <tr>
+                            <td valign="center"><p class="azul"><c:out value="${producto.nombre}"/></p></td>
+                            <td valign="center"><p class="azul"><c:out value="${producto.cantidad}"/></p></td>
+                            <td valign="center"><p class="azul"><c:out value="${producto.precio}"/></p></td>
+                        </tr>
+
+</c:forEach>
+
+                    <tr>
+                        <td colspan="3"><input type="image" src="https://www.paypal.com/es_ES/i/btn/btn_buynow_SM.gif" border="0" name="submit" alt="PayPal"/></td>
+                    </tr>
+                </table>
+            </form>           
+    </body>
+</html>

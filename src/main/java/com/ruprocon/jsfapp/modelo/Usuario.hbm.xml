@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-sep-2015 2:09:05 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.ruprocon.springapp.modelo.Usuario" table="usuario" catalog="ruprocon" optimistic-lock="version">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="idUsuario" />
+            <generator class="identity" />
+        </id>
+        <property name="usuario" type="string">
+            <column name="usuario" length="20" not-null="true" />
+        </property>
+        <property name="clave" type="string">
+            <column name="clave" length="20" not-null="true" />
+        </property>
+        <property name="rol" type="string">
+            <column name="rol" length="6" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="apellidos" length="40" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="20" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="provincia" length="20" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="ciudad" length="20" />
+        </property>
+        <property name="cp" type="java.lang.Integer">
+            <column name="cp" />
+        </property>
+        <property name="telefono" type="java.lang.Integer">
+            <column name="telefono">
+                <comment>valido numero internacionales</comment>
+            </column>
+        </property>
+        <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idUsuario" not-null="true" />
+            </key>
+            <one-to-many class="com.ruprocon.springapp.modelo.Factura" />
+        </set>
+    </class>
+</hibernate-mapping>

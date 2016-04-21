@@ -1,0 +1,40 @@
+<%@ include file="/WEB-INF/vistas/include.jsp" %>
+
+<tiles:insertDefinition name="defaultTemplate">
+    <tiles:putAttribute name="body">
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+			<head>
+		            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		            <title>Inicio</title>
+		            <link rel="stylesheet" href="css/inicio.css" type="text/css"/>
+		            <link rel="stylesheet" href="css/breadcrumb.css" type="text/css"/>
+			</head>
+			<body>
+		            <div id="breadcrumb" class="breadcrumb">
+		                <table width="100%" class="breadcrumb">
+		                    <tr>
+		                        <td>
+		                            <strong>Inicio</strong>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </div>
+		            <div id="inicio">
+		                <h1>Descripción general de nuestra empresa</h1>
+		                <table width="100%" border="0" align="center" cellpadding="5" cellspacing="3" frame="void">
+		                    <tr>
+		                        <td width="30%" height="20%" align="center" valign="top">
+		                            <img alt="Logo" src="fondos/fondo5.jpg" width="75%"/>
+		                        </td>
+		                        <td width="70%" height="20%" align="center" valign="top">
+		                            <h2>Bienvenido al RUPROCON</h2>
+		                            <p class="basic">RUPROCON S.L. consta con más de 20 años de experiencia en el sector, con sus 2 tiendas, una de 380m² y otro almacén central logístico de 1.500 m² para España, con proyecto de abrir franquicias en todo el país.</p>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </div>
+		    </body>
+		</html>
+    </tiles:putAttribute>
+</tiles:insertDefinition>

@@ -1,0 +1,54 @@
+<%@ include file="/WEB-INF/vistas/include.jsp" %>
+
+<tiles:insertDefinition name="defaultTemplate">
+    <tiles:putAttribute name="body">
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+		            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		            <title>Contacto</title>
+		            <link rel="stylesheet" href="css/contacto.css" type="text/css"/>
+		            <link rel="stylesheet" href="css/breadcrumb.css" type="text/css"/>
+			</head>
+			<body>
+		            <div id="breadcrumb" class="breadcrumb">
+		                <table width="100%" class="breadcrumb">
+		                    <tr>
+		                        <td>
+		                            <strong>Contacto</strong>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </div>
+		            <div id="contacto">
+					<table width="100%" border="0" align="center" cellpadding="5" cellspacing="3" frame="void">
+		                    <tr>
+		                        <td align="center" width="16%">			
+		                            <h2>Ubicación del Almacén Central</h2>
+		                            <p class="dir">Polígono Industrial La Ermita
+		                                <br/>C/ Yunque Nº20
+		                                <br/>Valencia</p>
+		                            
+		                            <h2>Teléfono de contacto</h2>
+		                            <p class="telf">Atención al cliente: <span class="tlf">902 565 634</span> - <span class="tlf">900 345 786</span></p>
+		                            <p class="telf">Pedidos Tlf: <span class="tlf">952 650 946</span></p>
+		                            
+		                            <h2>Correo electrónico</h2>
+		                            <p class="mail">elparaisodelosanimales@gmail.com</p>
+		                            
+		                            <h2>Horario</h2>
+		                            <p class="horario">Lunes-Sabado: 9:00 - 20:30</p>
+		                        </td>
+		                        <td align="left" valign="middle" width="16%">			
+		                            <!-- Código googlemaps-->
+		                            <iframe width="300" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.es/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=Universidad+de+Valencia+etse,+Valencia&amp;aq=&amp;sll=39.479051,-0.363219&amp;sspn=0.073271,0.169086&amp;ie=UTF8&amp;hq=Universidad+de+Valencia+etse,+Valencia&amp;hnear=&amp;t=m&amp;cid=12886084373984684037&amp;ll=39.512385,-0.424862&amp;spn=0.03973,0.051498&amp;z=13&amp;iwloc=A&amp;output=embed"></iframe>
+		                            <br/>
+		                            <small><a href="https://maps.google.es/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q=Universidad+de+Valencia+etse,+Valencia&amp;aq=&amp;sll=39.479051,-0.363219&amp;sspn=0.073271,0.169086&amp;ie=UTF8&amp;hq=Universidad+de+Valencia+etse,+Valencia&amp;hnear=&amp;t=m&amp;cid=12886084373984684037&amp;ll=39.512385,-0.424862&amp;spn=0.03973,0.051498&amp;z=13&amp;iwloc=A" style="color:#0000FF;text-align:left"></a></small>
+		                        </td>
+		                    </tr>
+	                </table>
+	            </div>
+			</body>
+		</html>
+    </tiles:putAttribute>
+</tiles:insertDefinition>

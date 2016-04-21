@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+
+p.ref {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+}
+A:link {
+    color: white;
+}
+A:hover {
+    color: yellow;
+}

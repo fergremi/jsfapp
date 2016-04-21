@@ -1,0 +1,236 @@
+<%-- 
+    Document   : gestionProductos
+    Created on : 27-may-2015, 7:31:32
+    Author     : fergremi
+--%>
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.List"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Gestión de Productos</title>
+        <link rel="stylesheet" href="formularios.css" type="text/css"/>
+        <link rel="stylesheet" href="tablaFiltro.css" type="text/css"/>
+        <script type="text/javascript" src="libCapas.js"></script>
+        <script type="text/javascript" src="comprobaciones.js"></script>
+    </head>
+    <body>
+        
+            <form name="formProd" method="post" onsubmit="ProcesarForm(this,'crearProducto','capaGestion');return false;">
+                <input type="hidden" name="tipoUsuario" value="admin"/>
+                <table border="1" cellpadding="0" cellspacing="0">
+                   <tr>
+                       <th><h2>AÑADIR NUEVO PRODUCTO</h2></th>
+                   </tr>
+                   <tr>          
+                       <td>
+                            <table width="100%" border="1">
+                                <tr>
+                                    <th class="varios">Tipo:</th>
+                                    <td>
+                                        <table width="100%">
+                                            <tr>
+                                                <td><input type="radio" name="tipoProducto"  maxlength="11" value="herramienta"/><span class="azul"> Herramienta</span></td>
+                                                <td><input type="radio" name="tipoProducto"  maxlength="11" value="maquinaria"/><span class="morado"> Maquinaria</span></td>
+                                                <td><input type="radio" name="tipoProducto"  maxlength="11" value="material"/><span class="rojo"> Material</span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="varios">Nombre:</th>
+                                    <td><input name="nombre" type="text" size="50"  maxlength="100" onblur="comprobarNombre();"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="varios">Descripción:</th>
+                                    <td><textarea name="descripcion" rows="5" cols="52"  maxlength="500" onblur="comprobarDescripcion();"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <th class="varios">Precio:</th>
+                                    <td><input name="precio" type="text" size="4" onblur="comprobarPrecio();"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="varios">Stock:</th>
+                                    <td><input name="stock" type="text" size="4" onblur="comprobarStock();"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="varios">Imagen:</th>
+                                    <td><input name="imagen" type="text" size="50"  maxlength="200" onblur="comprobarImagen();"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>                                     
+                    <tr>
+                        <td class="p"><input type="submit" value="Añadir producto"/></td>
+                    </tr>
+                </table>
+            </form>
+
+            <br/>
+            <br/>
+
+            <h2>Filtro de productos</h2>
+            <form method="post" onsubmit="ProcesarForm(this,'filtrarProducto','capaGestion');return false;">
+                <input type="hidden" name="tipoUsuario" value="admin"/>
+                <table class="filtro">
+                    <tr>
+                        <th>Filtrar por nombre</th>
+                        <th>Filtrar por rango de precios</th>
+                        <th colspan="3">Filtrar por tipo de producto</th>
+                        <th rowspan="2"><input type="submit" value="Filtrar"/></th>
+                    </tr>
+                    <tr>
+                        <td><input name="nombre" type="text" size="23"/></td>
+                        <td><p class="rojo"><input name="desdePrecio" type="text" size="3"/> - <input name="hastaPrecio" type="text" size="3"/></p></td>
+                        <td><input type="checkbox" name="tipoProducto" value="herramienta"/><span class="rojo"> Herramienta</span></td>
+                        <td><input type="checkbox" name="tipoProducto" value="maquinaria"/><span class="rojo"> Maquinaria</span></td>
+                        <td><input type="checkbox" name="tipoProducto" value="material"/><span class="rojo"> Material</span></td>
+                    </tr>
+                </table>
+            </form>
+            <%
+            ResultSet resultados = (ResultSet)session.getAttribute("filtrado");
+            session.removeAttribute("filtrado");
+            boolean filtro = false;
+
+            if (resultados != null) {%>
+                <h2>Búsqueda personalizada</h2></br>
+                <%
+                filtro = true;
+            }
+            else {%>
+                <h2>Listado de productos</h2></br>
+            <%}
+            List <String> cabecerasTipoProducto = Arrays.asList("Herramientas", "Maquinaria", "Materiales");
+            List <String> tipoProducto = Arrays.asList("herramienta", "maquinaria", "material");
+
+            String tipo = "", tipoAnterior = "";
+            int t = 0;
+            while (t < tipoProducto.size()) {
+                if (!filtro) { // no hay filtrado previo
+                    %>
+                    <table border="1" cellpadding="0" cellspacing="0">
+                <%}
+                if (!filtro) {%>
+                    <tr>
+                        <th colspan="4"><h3><%=cabecerasTipoProducto.get(t)%></h3></th>
+                    </tr>
+                <%}
+                while (resultados.next()) {
+                    if (filtro) {
+                        tipo = resultados.getString(7);
+                        while (!tipoProducto.get(t).equals(tipo))
+                            t++;
+                        if (!tipo.equals(tipoAnterior)) {
+                            if (!tipoAnterior.equals("")) {%>
+                                </table>
+                                </br>
+                            <%}%>
+                            <table border="1" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th colspan="4"><h3><%=cabecerasTipoProducto.get(t)%></h3></th>
+                                </tr>
+                        <%}
+                        tipoAnterior = tipo;
+                    }
+                    %>
+                    <tr> 
+                        <td>
+                            <form name="formProd" method="post" onsubmit="ProcesarForm(this,'modificarProducto','capaGestion');return false;">
+                                <input type="hidden" name="tipoUsuario" value="admin"/>
+                                <table>
+                                    <tr>
+                                        <th class="varios">Identificador:</th>
+                                        <td><input name="idProducto" type="text" size="4" value="<%=resultados.getInt(1)%>" readonly="" disabled=""/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Nombre:</th>
+                                        <td><input name="nombre" type="text" size="50"  maxlength="100" value="<%=resultados.getString(2)%>" onblur="comprobarNombre();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Descripción:</th>
+                                        <td><textarea name="descripcion" rows="5" cols="52"  maxlength="500" onblur="comprobarDescripcion();"><%=resultados.getString(3)%></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Precio:</th>
+                                        <td><input name="precio" type="text" size="4" value="" onblur="comprobarPrecio();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Stock:</th>
+                                        <td><input name="stock" type="text" size="4" value="<%=resultados.getInt(5)%>" onblur="comprobarStock();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Imagen:</th>
+                                        <td><input name="imagen" type="text" size="50"  maxlength="200"  value="<%=resultados.getString(6)%>" onblur="comprobarImagen();"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="varios">Tipo:</th>
+                                        <td>
+                                            <table width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <%
+                                                        if(resultados.getString(7).equals("herramienta"))
+                                                        {%>
+                                                          <input type="radio" name="tipoProducto" value="herramienta" checked><span class="azul"> Herramienta</span>
+                                                        <%}
+                                                        else
+                                                        {%>
+                                                          <input type="radio" name="tipoProducto" value="herramienta"/><span class="azul"> Herramienta</span>
+                                                        <%}%>
+                                                    </td>
+                                                    <td>
+                                                        <%
+                                                        if(resultados.getString(7).equals("maquinaria"))
+                                                        {%>
+                                                          <input type="radio" name="tipoProducto" value="maquinaria" checked/><span class="morado"> Maquinaria</span>
+                                                        <%}
+                                                        else
+                                                        {%>
+                                                          <input type="radio" name="tipoProducto" value="maquinaria"/><span class="morado"> Maquinaria</span>
+                                                        <%}%>
+                                                    </td>
+                                                    <td>
+                                                        <%
+                                                        if(resultados.getString(7).equals("material"))
+                                                        {%>
+                                                          <input type="radio" name="tipoProducto" value="material" checked/><span class="rojo"> Material</span></p>
+                                                        <%}
+                                                        else
+                                                        {%>
+                                                          <input type="radio" name="tipoProducto" value="material"/><span class="rojo"> Material</span></p>
+                                                        <%}%> 
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="p">
+                                            <br/>
+                                            <input type="submit" value="Modificar producto"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" onsubmit="ProcesarForm(this,'eliminarProducto','capaGestion');return false;">
+                                <input type="hidden" name="tipoUsuario" value="admin"/>
+                                <input type="hidden" name="idProducto" value="<%=resultados.getInt(1)%>"/>
+                                <p><input type="submit" value="Eliminar producto"/></p>
+                            </form>
+                        </td>
+                    </tr>
+                <%}%>
+                </table>
+                </br>
+                <%
+                t++;
+            }
+        %>
+    </body>
+</html>

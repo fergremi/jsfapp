@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+    background-image: url(fondos/fondoLogin.jpg);
+    padding: 0 2em;
+    font-family: Montserrat, sans-serif;
+}
+h1 {    
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center;
+    color: white;
+    border: dotted;
+    border-color: white;
+    background-image: url(fondos/fondoMuro.jpg);
+    background-repeat: repeat-x;
+}	
+h2 {
+    font-family: "Courier New", Courier, monospace;
+    color: #F60;
+    text-align: center;
+}
+h3 {
+    font-family: "MS Serif", "New York", serif;
+    color: #69F;
+    text-align: center;
+}
+.p {
+    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+}
+.cabecera {
+    color: #CC9;
+    font-weight: bolder;
+    border-color: white;
+    text-decoration: underline;
+    font-size: larger;
+}
+.varios {
+    color: #9F3;
+    font-weight: bold;
+    text-align: justify;
+    border-color: white;
+    text-decoration: underline;
+}
+.variosR {
+    color: #9F3;
+    font-weight: bold;
+    text-align: right;
+    border-color: white;
+    text-decoration: underline;
+}
+.variosL {
+    color: #9F3;
+    font-weight: bold;
+    text-align: left;
+    border-color: white;
+    text-decoration: underline;
+}
+.varios td {
+    text-align: center;
+}
+.azul {
+    color: blue;
+    font-weight: bold;
+}
+.rojo {
+    color: red;
+    font-weight: bold;
+}
+.morado {
+    color: purple;
+    font-weight: bold;
+}
+.c {
+    text-align: center;
+}

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ruprocon="http://ruprocon.com/jsp/jsfapp/runtimeJsf_2_2"
+	template="template/default.xhtml">
+	<ui:define name="header">${res['login.doLogin']} - IRIA Manager</ui:define>
+	<ui:define name="content">
+		<style type="text/css">
+		.ruprocon-form-buttons {
+			display: none;
+		}
+		
+		.ruprocon-field-value-column {
+			background-color: #FCE2CB;
+		}
+		</style>
+
+		<h:outputLabel for="userName" value="#{res['login.nombre']}:" />
+		<h:panelGroup>
+			<h:inputText autocomplete="off" id="userName" size="40"
+				value="#{loginController.userName}" required="true"
+				requiredMessage="#{res['required']}" />
+			<h:message styleClass="ruprocon-form-field-message" for="userName" />
+		</h:panelGroup>
+
+		<h:outputLabel for="password" value="#{res['login.pwd']}:" />
+		<h:panelGroup>
+			<h:inputSecret autocomplete="off" id="password" size="40"
+				value="#{loginController.password}" required="true"
+				requiredMessage="#{res['required']}" />
+			<h:message styleClass="ruprocon-form-field-message" for="password" />
+		</h:panelGroup>
+
+		<h:outputLabel />
+		<h:panelGroup>
+			<h:commandButton id="goLogin" value="#{res['login.doLogin']}"
+				action="#{loginController.goDoLogin}" onclick="onRequestStart()"
+				style="margin-right: 3px;" />
+			<h:commandButton id="goCertificado" immediate="true"
+				value="#{res['login.doLoginCertificado']}"
+				action="#{loginController.goCertificado}"
+				onclick="onRequestStart()" />
+		</h:panelGroup>
+		<script type="text/javascript">
+			//<![CDATA[
+			jQuery(document).ready(function() {
+				if (document.getElementById('f:userName')) {
+					document.getElementById('f:userName').focus();
+				}
+			});
+			//]]>
+		</script>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib version="2.0"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
+
+	<description>Librería de tags para el jsfapp, implementación en PrimeFaces</description>
+	<namespace>http://ruprocon.com/jsp/jsfapp/runtimeJsf_2_2</namespace>
+
+	<!-- Inclusión de los estilos y scripts -->
+	<tag>
+		<description>Estilos que cargará la aplicación</description>
+		<display-name>CSS</display-name>
+		<tag-name>stylesheets</tag-name>
+		<source>stylesheets.jspx</source>
+	</tag>
+	<tag>
+		<description>Scripts que cargará la aplicación</description>
+		<display-name>JS</display-name>
+		<tag-name>scripts</tag-name>
+		<source>scripts.jspx</source>
+	</tag>
+</facelet-taglib>

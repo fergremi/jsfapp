@@ -1,0 +1,59 @@
+<%-- 
+    Document   : productos
+    Created on : 12-may-2015, 22:30:26
+    Author     : fergremi
+--%>
+
+<%@ include file="/WEB-INF/vistas/include.jsp" %>
+
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+        <title>Productos</title>
+        <link rel="stylesheet" href="css/productos.css" type="text/css"/>
+        <link rel="stylesheet" href="css/breadcrumb.css" type="text/css"/>
+        <link rel="stylesheet" href="css/tablaProductos.css" type="text/css"/>
+        <link rel="stylesheet" href="css/tablaFiltro.css" type="text/css"/>
+    </head>
+    <body>
+        <script type="text/javascript">Cargar('menu.jsp','menu');</script>
+        <%
+        String error = (String)request.getSession().getAttribute("error");
+        if ((error != "")&&(error != null)) // avisar del error
+        {%>
+            <script type="text/javascript">alert("<%=error%>");</script>
+      <%}
+        request.getSession().setAttribute("error", ""); // borrar el error despues del aviso
+        %>
+        <div id="breadcrumb" class="breadcrumb">
+            <table width="100%" class="breadcrumb">
+                <tr>
+                    <td><strong>Listado de TODOS los productos</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="filtro">
+            <h2 style="text-align: center">Filtro de productos</h2>
+            <form:form method="post" onsubmit="ProcesarForm(this,'filtrarProducto','capa1');return false;">
+                <table class="filtro">
+                    <tr>
+                        <th>Filtrar por nombre</th>
+                        <th>Filtrar por rango de precios</th>
+                        <th colspan="3">Filtrar por tipo de producto</th>
+                        <th rowspan="2"><input type="submit" value="Filtrar"/></th>
+                    </tr>
+                    <tr>
+                        <td><form:input path="nombre" size="23"/></td>
+                        <td><p class="rojo"><form:input path="desdePrecio" size="3"/><font color="red"><form:errors path="desdePrecio"/></font> - <form:input path="hastaPrecio" size="3"/><font color="red"><form:errors path="hastaPrecio"/></font></p></td>
+                        <td><form:checkbox path="tipoProducto" value="herramienta"/><span class="rojo"> Herramienta</span></td>
+                        <td><form:checkbox path="tipoProducto" value="maquinaria"/><span class="rojo"> Maquinaria</span></td>
+                        <td><form:checkbox path="tipoProducto" value="material"/><span class="rojo"> Material</span></td>
+                    </tr>
+                </table>
+            </form:form>
+        </div>
+        
+        <div id="productos"></div>
+    </body>
+</html>

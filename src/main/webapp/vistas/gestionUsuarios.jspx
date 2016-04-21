@@ -1,0 +1,330 @@
+<%-- 
+    Document   : gestionUsuarios
+    Created on : 27-may-2015, 7:30:32
+    Author     : fergremi
+--%>
+
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.List"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Gestión de Usuarios</title>
+        <link rel="stylesheet" href="formularios.css" type="text/css"/>
+        <link rel="stylesheet" href="tablaFiltro.css" type="text/css"/>
+        <script type="text/javascript" src="libCapas.js"></script>
+        <script type="text/javascript" src="comprobaciones.js"></script>
+        <script>
+            function mostrarOcultarTablas(id){
+                mostrar = 0;
+                elem = document.getElementById(id);
+                if (elem.style.display === 'block')
+                    mostrar = 1;
+                elem.style.display = 'none';
+                if (mostrar !== 1)
+                    elem.style.display = 'block';
+            }
+        </script>
+    </head>
+    <body>
+        <script type="text/javascript">Cargar('menu.jsp','menu');</script>
+        <%
+        String error = (String)session.getAttribute("error");
+        if ((error != "")&&(error != null)) // avisar del error
+        {%>
+            <script type="text/javascript">alert("<%=error%>");</script>
+      <%}
+        session.setAttribute("error", ""); // borrar el error despues del aviso
+        // Se obtiene el administrador actual registrado en el servicio web, del entorno de sesión
+        String adminActual = (String)session.getAttribute("admin");
+        if ((adminActual == null) || (adminActual.equals(""))) // Muestra el formulario para la introducción del usuario y la clave
+        {
+            if (adminActual != null) // Error al introducir el usuario y la clave
+            {%>
+                <h2>USUARIO O CLAVE INCORRECTO</h2> <br/><br/>              
+          <%}%>
+            <form name="formLogin" method="post" onsubmit="ProcesarForm(this,'loginAdmin','capa1');return false;">
+                <table>
+                    <tr>
+                        <th class="cabecera">Usuario:</th>
+                        <td><input name="usuario" type="text" size="20" autofocus="" onblur="comprobarUsuario();"/></td>
+                    </tr>
+                    <tr>
+                        <th class="cabecera">Contraseña:</th>
+                        <td><input type="password" maxlength="20" name="clave" size="20" onblur="comprobarClave();"/></td>
+                    </tr>
+                    <tr>
+                        <td class="p">
+                            <br/>
+                            <input type="submit" value="Entrar como Administrador"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+      <%}
+        else // Si existe un administrador, se mostrará la información de gestión de usuarios y de gestión de productos
+        {%>
+            <table class="filtro">
+                <tr>
+                    <th colspan="4"><h2>AÑADIR NUEVO USUARIO</h2></th>
+                </tr>
+                <tr>          
+                    <td>
+                        <form name="formLogin" method="post" onsubmit="ProcesarForm(this,'crearUsuario','capaGestion');return false;">
+                            <table border="1">
+                                <tr>
+                                    <th class="varios">Tipo:</th>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><input type="radio" name="tipoUsuario" value="admin"/><span class="rojo"> Administrador</span></td>
+                                                <td><input type="radio" name="tipoUsuario" value="worker"/><span class="morado"> Empleado</span></td>
+                                                <td><input type="radio" name="tipoUsuario" value="user"/><span class="azul"> Usuario</span></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="varios">Usuario:</th>
+                                    <td colspan="3"><input name="usuario" type="text" size="20" onblur="comprobarUsuario();"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="varios">Contraseña:</th>
+                                    <td colspan="3"><input type="password" maxlength="20" name="clave" size="20" onblur="comprobarClave();"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="p"><input type="submit" value="Añadir usuario"/></td>
+                                </tr>
+                            </table>
+                        </form>   
+                    </td>
+                </tr>
+            </table>
+                        
+            <form method="post" onsubmit="ProcesarForm(this,'filtrarUsuario','capaGestion');return false;">
+                <table class="filtro">
+                    <tr>
+                        <th colspan="5"><h2>Filtro de usuarios</h2></th>
+                    </tr>
+                    <tr>
+                        <th>Filtrar por nombre de usuario</th>
+                        <th colspan="3">Filtrar por tipo de usuario</th>
+                        <th rowspan="2"><input type="submit" value="Filtrar"/></th>
+                    </tr>
+                    <tr>
+                        <td><input name="nombre" type="text" size="23"/></td>
+                        <td><input type="checkbox" name="tipoUsuario" value="admin"/><span class="rojo"> Administrador</span></td>
+                        <td><input type="checkbox" name="tipoUsuario" value="worker"/><span class="morado"> Empleado</span></td>
+                        <td><input type="checkbox" name="tipoUsuario" value="user"/><span class="azul"> Usuario</span></td>
+                    </tr>
+                </table>
+            </form>
+
+            <table class="filtro">
+                <tr>
+                    <%
+                    ResultSet resultados = (ResultSet)session.getAttribute("filtrado");
+                    session.removeAttribute("filtrado");
+                    boolean filtro = false;
+
+                    if (resultados != null) {%>
+                        <th><h2>Búsqueda personalizada</h2></th>
+                    <%
+                        filtro = true;
+                    }
+                    else {%>
+                        <th><h2>Listado de usuarios</h2></th>
+                    <%}%>
+                </tr>
+                <tr>
+                    <td>
+                        <%
+                        List <String> cabecerasTipoUsuario = Arrays.asList("Administradores", "Clientes", "Empleados");
+                        List <String> tipoUsuario = Arrays.asList("admin", "user", "worker");
+
+                        String tipo = "", tipoAnterior = "";
+                        int t = 0;
+                        while (t < tipoUsuario.size()) {
+                            if (!filtro) {
+                                %>
+                                <table border="1" cellpadding="0" cellspacing="0">
+                            <%}
+                            if (!filtro) {%>
+                                <tr>
+                                    <th colspan="2"><h3><%=cabecerasTipoUsuario.get(t)%></h3></th>
+                                </tr>
+                            <%}
+                            while (resultados.next()) {
+                                if (filtro) {
+                                    tipo = resultados.getString(4);
+                                    while (!tipoUsuario.get(t).equals(tipo))
+                                        t++;
+                                    if (!tipo.equals(tipoAnterior)) {
+                                        if (!tipoAnterior.equals("")) {%>
+                                            </table>
+                                            </br>
+                                        <%}%>
+                                        <table border="1" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <th colspan="2"><h3><%=cabecerasTipoUsuario.get(t)%></h3></th>
+                                            </tr>
+                                    <%}
+                                    tipoAnterior = tipo;
+                                }%>
+                                <tr>          
+                                    <td style="border-top: 1px solid #000;">
+                                        <form name="formLogin" method="post" onsubmit="ProcesarForm(this,'modificarUsuariosAdmin','capaGestion');return false;">
+                                            <table>
+                                                <tr>
+                                                    <th class="varios">Identificador:</th>
+                                                    <td colspan="3"><input name="idUsuario" type="text" value="<%=resultados.getInt(1)%>" size="1" readonly="" disabled=""/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="varios">Usuario:</th>
+                                                    <td colspan="3"><input name="usuario" type="text" value="<%=resultados.getString(2)%>" size="20" onblur="comprobarUsuario();"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="varios">Contraseña:</th>
+                                                    <td colspan="3"><input type="password" maxlength="20" name="clave" size="20" value="<%=resultados.getString(3)%>" onblur="comprobarClave();"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="varios">Tipo:</th>
+                                                    <td>
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <%
+                                                                    if(resultados.getString(4).equals("admin"))
+                                                                    {%>
+                                                                        <input type="radio" name="tipoUsuario" value="admin" checked/><span class="rojo"> Administrador</span></p>
+                                                                    <%}
+                                                                    else
+                                                                    {%>
+                                                                        <input type="radio" name="tipoUsuario" value="admin"/><span class="rojo"> Administrador</span></p>
+                                                                    <%}%>
+                                                                </td>
+                                                                <td>
+                                                                    <%
+                                                                    if(resultados.getString(4).equals("worker"))
+                                                                    {%>
+                                                                        <input type="radio" name="tipoUsuario" value="worker" checked/><span class="morado"> Empleado</span>
+                                                                    <%}
+                                                                    else
+                                                                    {%>
+                                                                        <input type="radio" name="tipoUsuario" value="worker"/><span class="morado"> Empleado</span>
+                                                                    <%}%>
+                                                                </td>
+                                                                <td>
+                                                                    <%
+                                                                    if(resultados.getString(4).equals("user"))
+                                                                    {%>
+                                                                        <input type="radio" name="tipoUsuario" value="user" checked/><span class="azul">Usuario</span>
+                                                                    <%}
+                                                                    else
+                                                                    {%>
+                                                                        <input type="radio" name="tipoUsuario" value="user"/><span class="azul">Usuario</span>
+                                                                    <%}%>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="p">
+                                                        <br/>
+                                                        <input type="submit" value="Modificar login usuario"/>
+                                                    </td>
+                                                </tr>
+                                                <%
+                                                if (resultados.getString(4).equals("user")) {%>
+                                                    <tr>
+                                                        <td colspan="4" class="p">
+                                                            <br/>
+                                                            <a name='usuario'></a>
+                                                            
+                                                                <a href="#usuario" onclick="mostrarOcultarTablas('datosPersonales');">Datos personales</a>
+
+
+                                                            <div id="datosPersonales" style="display: none;">
+                                                                <table class="filtro">
+                                                                    <tr>
+                                                                        <%
+                                                                        ResultSet res = null ;
+                                                                        while (res.next()) {
+                                                                        %>
+                                                                            <td>
+                                                                                <form name="formLogin" method="post" onsubmit="ProcesarForm(this,'modificarPerfil','capaGestion');return false;">
+                                                                                    <input type="hidden" name="usuario" value="<%=resultados.getString(4)%>"/>
+                                                                                    <input type="hidden" name="tipoUsuario" value="user"/>
+                                                                                    <table width='100%'>
+                                                                                        <tr>
+                                                                                            <th class="varios">Nombre:</th>
+                                                                                            <td><input name="nombre"  type="text" value="<%=res.getString(3)%>" size="20" onblur="comprobarNombre();"/></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th class="varios">Apellidos:</th>
+                                                                                            <td><input name="apellidos" type="text" value="<%=res.getString(4)%>" size="20" onblur="comprobarApellidos();"/></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th class="varios">Dirección:</th>
+                                                                                            <td><input name="direccion" type="text" value="<%=res.getString(5)%>" size="20" onblur="comprobarDireccion();"/></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th class="varios">Provincia:</th>
+                                                                                            <td><input name="provincia" type="text" value="<%=res.getString(6)%>" size="20" onblur="comprobarProvincia();"/></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th class="varios">Ciudad:</th>
+                                                                                            <td><input name="ciudad" type="text" value="<%=res.getString(7)%>" size="20" onblur="comprobarCiudad();"/></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th class="varios">Código postal:</th>
+                                                                                            <td><input name="cp" type="text" value="<%=res.getInt(8)%>" size="20" onblur="comprobarCP();"/></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th class="varios">Teléfono:</th>
+                                                                                            <td><input name="telefono" type="text" value="<%=res.getInt(9)%>"size="20" onblur="comprobarTlf();"/></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td colspan="2" class="p">
+                                                                                                <br/>
+                                                                                                <input type="submit" value="Modificar datos personales"/>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </form>
+                                                                            </td>
+                                                                        <%}%>  
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+                                            </table>
+                                        </form>
+                                    </td>
+                                    <td style="border-top: 1px solid #000;">
+                                        <form method="post" onsubmit="ProcesarForm(this,'eliminarUsuarioAdmin','capaGestion');return false;">
+                                            <input type="hidden" name="idUsuario" value="<%=resultados.getInt(1)%>"/>
+                                            <input type="hidden" name="tipoUsuario" value="<%=resultados.getString(4)%>"/>
+                                            <input type="hidden" name="usuario" value="<%=resultados.getString(2)%>"/>
+                                            <input type="submit" value="Eliminar usuario"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <%}%>
+                            </table>
+                            </br>
+                            <%
+                            t++;    
+                        }%>
+                    </td>
+                </tr>
+            </table>
+        <%}%>
+    </body>
+</html>

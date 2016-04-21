@@ -1,0 +1,36 @@
+<%-- 
+    Document   : added
+    Created on : 12-may-2015, 22:10:32
+    Author     : fergremi
+--%>
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Producto añadido</title>
+        <link rel="stylesheet" href="articulos.css" type="text/css"/>
+        <script type="text/javascript" language="javascript" src="libCapas.js"></script>
+        <script>
+            function mostrarNotificacion() {
+                document.getElementById('notificaciones').style.visibility = 'visible';
+            }
+            function autoOcultar() {
+                document.getElementById('notificaciones').style.visibility = 'hidden';
+            }
+            setTimeout('autoOcultar()', 5000);
+        </script>
+    </head>
+    <body>
+            <script type="text/javascript">mostrarNotificacion();</script>
+ 
+                <table style="background: white;">
+                    <tr>
+                        <td><h2 style="font-size: smaller;">Pedido cancelado</h2></td>
+                    </tr>
+                </table>
+
+    </body>
+</html>
