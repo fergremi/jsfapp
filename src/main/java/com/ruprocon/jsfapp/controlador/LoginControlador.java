@@ -1,42 +1,51 @@
 package com.ruprocon.jsfapp.controlador;
 
-import java.io.Serializable;
-
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 
+import com.ruprocon.jsfapp.ejb.jpa.UsuarioFacade;
+import com.ruprocon.jsfapp.modelo.Usuario;
+
 //@RequestMapping(value= "/loginTienda.htm")
 @ManagedBean
-@ViewScoped
-public class LoginControlador implements Serializable {
-    private static Logger log = Logger.getLogger(LoginControlador.class);
-/*
-    @RequestMapping(method = RequestMethod.GET)
-    public String productosVenta(Model model) {
-        logger.info("Añadiendo <login> al modelo <model>");    	
-        model.addAttribute("user", new Usuario());
+@SessionScoped
+@SuppressWarnings("unused")
+public class LoginControlador {
+	private static Logger log = Logger.getLogger(LoginControlador.class);
+    
+    @EJB
+    UsuarioFacade usuarioFacade;
+    
+    private final String ROLE_USER = "ROLE_USER";
+	private final String ROLE_ADMIN = "ROLE_ADMIN";
+
+    public String registrarUsuario(String usuario, String clave) {
+        Usuario user = new Usuario(usuario, clave, ROLE_USER, true);
+        log.info("<usuario> creado: "
+				+ "idUsuario [" + user.getIdUsuario() + "], "
+				+ "Usuario [" + user.getUsuario() + "], " 
+				+ "Clave [" + user.getClave() + "]");
         
-        logger.info("Devolviendo vista <loginTienda>");
+        log.info("#loginTienda#");
         return "loginTienda";
     }
     
-    @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(@Valid Usuario user, BindingResult result)
-    {
-        if (result.hasErrors()) {
-            return "loginTienda";
-        }
-		
+    public String doLogin(@Valid Usuario user) {
         String usuario = user.getUsuario();
         String clave = user.getClave();
-        logger.info("Buscando usuario: <" + usuario + ", " + clave + ">");
-
-        if(usuarioGestor.comprobarUsuario(usuario, clave, "ROLE_USER") != null)
-    		return "redirect:/tienda.htm";
-        else
+        
+        log.info("Buscando usuario: <" + usuario + ", " + clave + ">");
+        if(usuarioFacade.comprobarUsuario(usuario, clave, "ROLE_USER") != null) {
+        	log.info("#tienda#");
+        	return "tienda";
+        }
+        else {
+        	log.info("#loginTienda#");        	
         	return "loginTienda";
+        }
     }
-*/
 }

@@ -1,32 +1,48 @@
 package com.ruprocon.jsfapp.controlador;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
+import com.ruprocon.jsfapp.ejb.jpa.PedidoFacade;
+import com.ruprocon.jsfapp.modelo.Pedido;
+
 //@RequestMapping(value= "/pedidos.htm")
 @ManagedBean
-@ViewScoped
-public class GestionPedidosControlador implements Serializable {
-    private static Logger log = Logger.getLogger(GestionPedidosControlador.class); 
-/*    
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView pedidosVenta() {
-        logger.info("Añadiendo <pedidos> al modelo <model>");
+@SessionScoped
+@SuppressWarnings("unused")
+public class GestionPedidosControlador  {
+	private static Logger log = Logger.getLogger(GestionPedidosControlador.class); 
+	
+	@EJB
+    PedidoFacade pedidoFacade;
+	
+	private List<Pedido> pedidos;
+   
+    /**
+     * Obtiene los pedidos de ventas de BD
+     * 
+     * @return path
+     */
+    public String getPedidos() {
+    	this.pedidos = pedidoFacade.getPedidos();
+        log.info("<pedidos> obtenidos");
         
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("pedidos", this.pedidoGestor.getPedidos());
-        
-        logger.info("Devolviendo vista <pedidosVenta>");
-        return new ModelAndView("pedidos", "model", model);
+        log.info("#pedidos#");
+        return "pedidos";
     }
     
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView submit(@ModelAttribute("pedido") Pedido pedido) {
-        return new ModelAndView("pedidos");
-    }
-*/
+    // TODO modPedidoVenta?
+
+	/**
+	 * @param pedidos the pedidos to set
+	 */
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 }

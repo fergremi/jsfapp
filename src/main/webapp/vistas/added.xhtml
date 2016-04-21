@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/default.xhtml">
+	<ui:define name="header">
+		<title>Producto añadido</title>
+		<link rel="stylesheet" href="articulos.css" type="text/css" />
+		<script type="text/javascript" language="javascript" src="libCapas.js"></script>
+		<script>
+            function mostrarNotificacion() {
+                document.getElementById('notificaciones').style.visibility = 'visible';
+            }
+            function autoOcultar() {
+                document.getElementById('notificaciones').style.visibility = 'hidden';
+            }
+            setTimeout('autoOcultar()', 5000);
+        </script>
+	</ui:define>
+	<ui:define name="content">
+		<script type="text/javascript">mostrarNotificacion();</script>
+		<table style="background: white;">
+			<tr>
+				<td rowspan="2">
+					<img alt="Producto añadido" src="/RUPROCON/img/add.png" width="100%" />
+				</td>
+				<td><h2 style="font-size: smaller;">Producto añadido</h2></td>
+			</tr>
+			<tr>
+				<td>
+					<h3 style="font-size: small;">
+						<c:out value="${producto.nombre}" />
+					</h3>
+				</td>
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>

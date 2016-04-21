@@ -9,8 +9,9 @@ import org.apache.log4j.Logger;
 
 @ManagedBean
 @ViewScoped
-public class Controlador implements Serializable {
+public class Controlador {
     private static Logger log = Logger.getLogger(Controlador.class);
+//  return JsfUtil.facesRedirect("/festivos/festivos");
 /*
     @RequestMapping(value= {"/", "/inicial.htm"}, method = RequestMethod.GET)
     public ModelAndView inicial() {
