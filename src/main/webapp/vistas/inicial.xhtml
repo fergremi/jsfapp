@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/default.xhtml">
+	<ui:define name="header">
+		<title>Inicio</title>
+		<link rel="stylesheet" href="css/inicio.css" type="text/css" />
+		<link rel="stylesheet" href="css/breadcrumb.css" type="text/css" />
+	</ui:define>
+	<ui:define name="breadcrumb">
+		<div id="breadcrumb" class="breadcrumb">
+			<table width="100%" class="breadcrumb">
+				<tr>
+					<td><strong>Inicio</strong></td>
+				</tr>
+			</table>
+		</div>
+	</ui:define>
+	<ui:define name="content">
+		<div id="inicio">
+			<h1>Descripción general de nuestra empresa</h1>
+			<table width="100%" border="0" align="center" cellpadding="5"
+				cellspacing="3" frame="void">
+				<tr>
+					<td width="30%" height="20%" align="center" valign="top">
+						<img alt="Logo" src="fondos/fondo5.jpg" width="75%" />
+					</td>
+					<td width="70%" height="20%" align="center" valign="top">
+						<h2>Bienvenido al RUPROCON</h2>
+						
+						<p class="basic">RUPROCON S.L. consta con más de 20 años de
+							experiencia en el sector, con sus 2 tiendas, una de 380m2 y otro
+							almacén central logístico de 1.500m2 para España, con proyecto
+							de abrir franquicias en todo el país.</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</ui:define>
+</ui:composition>

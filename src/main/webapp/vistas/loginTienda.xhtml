@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/default.xhtml">
+	<ui:define name="header"></ui:define>
+	<ui:define name="content">
+		<table>
+			<tr>
+				<td><img alt="SOLO personal autorizado"
+					src="/RUPROCON/fondos/staff.jpg" width="25%" /></td>
+			</tr>
+			<tr>
+				<td><h:form method="POST" commandName="login">
+						<table>
+							<tr>
+								<th><h:outputLabel for="usuario">Usuario: </h:outputLabel></th>
+								<td><h:inputText id="usuario" /></td>
+							</tr>
+							<tr>
+								<th><h:outputLabel for="clave">Contraseña: </h:outputLabel></th>
+								<td><h:inputSecret id="clave" />
+							</tr>
+
+							<tr>
+								<td><input type="submit" value="Entrar a la Tienda Virtual" /></td>
+							</tr>
+						</table>
+					</h:form></td>
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/default.xhtml">
+	<ui:define name="header">
+		<title>Empresa</title>
+		<link rel="stylesheet" href="css/empresa.css" type="text/css" />
+		<link rel="stylesheet" href="css/breadcrumb.css" type="text/css" />
+	</ui:define>
+	<ui:define name="breadcrumb">
+		<div id="breadcrumb" class="breadcrumb">
+			<table width="100%" class="breadcrumb">
+				<tr>
+					<td><strong>Empresa</strong></td>
+				</tr>
+			</table>
+		</div>
+	</ui:define>
+	<ui:define name="content">
+		<div id="empresa">
+			<h1>Historia de la empresa y su actividad</h1>
+
+			<p class="historia">El paraíso de las mascotas S.L. cuenta con un
+				equipo de Responsable de Tiendas, responsables de Almacén, jefe de
+				Compra, servicio de atención al cliente, atención veterinaria y
+				equipo de peluquería canina.</p>
+
+			<p class="historia">El paraíso de las mascotas S.L. compra sus
+				productos en su mayoría en España, pero también importa del resto
+				del mundo, buscando calidad e innovación para sus clientes.</p>
+
+			<p class="historia">El paraíso de las mascotas S.L. está abierto
+				a todo tipo de sugerencia de productos que no encuentre en nuestra
+				tienda y en un plazo corto lo tendrá a la venta. Por ello podemos
+				decir "si no lo encuentra en elparaisodelasmascotas.com no lo
+				encuentra en otra tienda". Podemos presumir del surtido más grande
+				online en este momento y a una mejor calidad precio.</p>
+
+			<p class="historia">Todo ello para dar mejor servicio y agilidad
+				a sus clientes en un menor tiempo posible.</p>
+		</div>
+	</ui:define>
+</ui:composition>

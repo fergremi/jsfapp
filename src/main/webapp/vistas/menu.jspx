@@ -1,64 +1,81 @@
-<%@ include file="/WEB-INF/vistas/include.jsp" %>
-
-<tiles:insertDefinition name="defaultTemplate">
-    <tiles:putAttribute name="menu">
-        <div id="header">
-	        <ul class="menu">
-	            <li><a href="/springapp/inicial.htm"><p class="inicio">Inicio</p></a></li>
-	            <li><a href="/springapp/empresa.htm"><p class="empresa">Empresa</p></a></li>
-	            <li><a href="/springapp/contacto.htm"><p class="contacto">Contacto</p></a></li>
-	            <li><a href="/springapp/productos.htm"><p class="productos">Productos</p></a>
-	                <ul>
-	                        <li><a href="/springapp/productos/productosVenta.htm"><p class="productos">Catálogo</p></a></li>
-	                        <li><a href="/springapp/productos/productosAlquiler.htm"><p class="productos">Alquiler</p></a></li>
-	                </ul>
-	            </li>
-	            <li><a href="/springapp/loginTienda.htm"><p class="tienda">Tienda</p></a>
-	            </li>
-	            <li><a href="/springapp/intranet.htm"><p class="admin">Zona empleados</p></a>
-	                <ul>
-	                        <li><a href="/springapp/intranet/empleados.htm"><p class="admin">Empleado</p></a></li>
-	                        <li><a href="/springapp/intranet/admin.htm"><p class="admin">Administrador</p></a></li>
-	                </ul>
-	            </li>
-	        </ul>
-		    <ul class="menu">
-	            <%
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="template/default.xhtml">
+	<ui:define name="header"></ui:define>
+	<ui:define name="menu">
+		<ul class="menu">
+			<li><a href="/springapp/inicial.htm"><p class="inicio">Inicio</p></a></li>
+			<li><a href="/springapp/empresa.htm"><p class="empresa">Empresa</p></a></li>
+			<li><a href="/springapp/contacto.htm"><p class="contacto">Contacto</p></a></li>
+			<li><a href="/springapp/productos.htm"><p class="productos">Productos</p></a>
+				<ul>
+					<li><a href="/springapp/productos/productosVenta.htm"><p
+								class="productos">Catï¿½logo</p></a></li>
+					<li><a href="/springapp/productos/productosAlquiler.htm"><p
+								class="productos">Alquiler</p></a></li>
+				</ul></li>
+			<li><a href="/springapp/loginTienda.htm"><p class="tienda">Tienda</p></a>
+			</li>
+			<li><a href="/springapp/intranet.htm"><p class="admin">Zona
+						empleados</p></a>
+				<ul>
+					<li><a href="/springapp/intranet/empleados.htm"><p
+								class="admin">Empleado</p></a></li>
+					<li><a href="/springapp/intranet/admin.htm"><p
+								class="admin">Administrador</p></a></li>
+				</ul></li>
+		</ul>
+		<ul class="menu">
+			<%
 	            String usuarioActual = (String)request.getSession().getAttribute("usuario");
 	            if ((usuarioActual!=null) && (!usuarioActual.equals("")) && (!usuarioActual.equals("-1")))  //Hay un usuario registrado
 	            {%>
-	                <li><p class="azul">Usuario: <span class="naranja"><%=usuarioActual%></span></p>
-	                        <ul>
-	                            <li><a href="/perfilUsuario.htm"><p class="otro">Modificar datos</p></a></li>
-	                            <li><a href="/cerrarSesionUsuario.htm"><p class="otro">Cerrar Sesión</p></a></li>
-	                        </ul>
-	                </li>
-	          <%}%>
-	
-	            <%
+			<li><p class="azul">
+					Usuario: <span class="naranja"><%=usuarioActual%></span>
+				</p>
+				<ul>
+					<li><a href="/perfilUsuario.htm"><p class="otro">Modificar
+								datos</p></a></li>
+					<li><a href="/cerrarSesionUsuario.htm"><p class="otro">Cerrar
+								Sesiï¿½n</p></a></li>
+				</ul></li>
+			<%}%>
+
+			<%
 	            String adminActual = (String)request.getSession().getAttribute("admin");
 	            if ((adminActual!=null) && (!adminActual.equals("")))  //Hay un usuario registrado
 	            {%>
-	                <li class="usuarios"><p class="azul">Administrador: <span class="naranja"><%=adminActual%></span></p>
-	                    <ul>
-	                        <li><a href="/perfilAdmin.htm"><p class="otro">Modificar datos</p></a></li>
-	                        <li><a href="/cerrarSesionAdmin.htm"><p class="otro">Cerrar Sesión</p></a></li>
-	                    </ul>
-	                </li>
-	          <%}%>
-	        
-	            <%
+			<li class="usuarios"><p class="azul">
+					Administrador: <span class="naranja"><%=adminActual%></span>
+				</p>
+				<ul>
+					<li><a href="/perfilAdmin.htm"><p class="otro">Modificar
+								datos</p></a></li>
+					<li><a href="/cerrarSesionAdmin.htm"><p class="otro">Cerrar
+								Sesiï¿½n</p></a></li>
+				</ul></li>
+			<%}%>
+
+			<%
 	            String trabajadorActual = (String)request.getSession().getAttribute("trabajador");
 	            if ((trabajadorActual!=null) && (!trabajadorActual.equals("")))  //Hay un usuario registrado
 	            {%>
-	                <li class="usuarios"><p class="azul">Empleado: <span class="naranja"><%=trabajadorActual%></span></p>
-	                    <ul>
-	                        <li><a href="/perfilWorker.htm"><p class="otro">Modificar datos</p></a></li>
-	                        <li><a href="/cerrarSesionWorker.htm"><p class="otro">Cerrar Sesión</p></a></li>
-	                    </ul>
-	                </li>
-	          <%}%>
-	        </ul>
-		</div>
-    </tiles:putAttribute>
-</tiles:insertDefinition>
+			<li class="usuarios"><p class="azul">
+					Empleado: <span class="naranja"><%=trabajadorActual%></span>
+				</p>
+				<ul>
+					<li><a href="/perfilWorker.htm"><p class="otro">Modificar
+								datos</p></a></li>
+					<li><a href="/cerrarSesionWorker.htm"><p class="otro">Cerrar
+								Sesiï¿½n</p></a></li>
+				</ul></li>
+			<%}%>
+		</ul>
+	</ui:define>
+</ui:composition>
