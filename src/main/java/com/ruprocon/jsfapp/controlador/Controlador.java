@@ -1,9 +1,16 @@
 package com.ruprocon.jsfapp.controlador;
 
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import org.apache.log4j.Logger;
 
-public class IndexControlador {
-    private static Logger log = Logger.getLogger(IndexControlador.class);
+@ManagedBean
+@ViewScoped
+public class Controlador implements Serializable {
+    private static Logger log = Logger.getLogger(Controlador.class);
 /*
     @RequestMapping(value= {"/", "/inicial.htm"}, method = RequestMethod.GET)
     public ModelAndView inicial() {

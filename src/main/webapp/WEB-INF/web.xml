@@ -6,13 +6,14 @@
 	<display-name>jsfapp</display-name>
 	
     <welcome-file-list>
-        <welcome-file>default.ruprocon</welcome-file>
+        <!-- <welcome-file>default.ruprocon</welcome-file> -->
+        <welcome-file>index.ruprocon</welcome-file>
     </welcome-file-list>
 
-	<!-- <context-param>
+	<context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
-    </context-param> -->
+    </context-param>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -33,15 +34,9 @@
     </servlet-mapping>
     
     <context-param>
-        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-        <param-value>.jspx</param-value>
-    </context-param>
-
-    <context-param>
         <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
         <param-value>*.jspx</param-value>
     </context-param>
-
     <context-param>
         <param-name>javax.faces.FACELETS_SUFFIX</param-name>
         <param-value>.jspx</param-value>
@@ -131,7 +126,7 @@
         <param-value>bootstrap</param-value>
     </context-param>
     
-    <resource-ref>
+    <!-- <resource-ref>
         <description>complet core connection</description>
         <res-ref-name>jdbc/ruproconModel</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
@@ -139,8 +134,8 @@
     </resource-ref>
     <persistence-context-ref>
         <persistence-context-ref-name>persistence/ruproconModel</persistence-context-ref-name>
-        <persistence-unit-name>completModel</persistence-unit-name>
-    </persistence-context-ref>
+        <persistence-unit-name>ruproconModel</persistence-unit-name>
+    </persistence-context-ref> -->
     
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>

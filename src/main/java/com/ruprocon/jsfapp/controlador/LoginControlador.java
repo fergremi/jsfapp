@@ -1,16 +1,21 @@
 package com.ruprocon.jsfapp.controlador;
 
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import org.apache.log4j.Logger;
 
-import com.ruprocon.jsfapp.modelo.Usuario;
-
 //@RequestMapping(value= "/loginTienda.htm")
-public class LoginControlador {
-    private static Logger log = Logger.getLogger(CestaControlador.class);
+@ManagedBean
+@ViewScoped
+public class LoginControlador implements Serializable {
+    private static Logger log = Logger.getLogger(LoginControlador.class);
 /*
     @RequestMapping(method = RequestMethod.GET)
     public String productosVenta(Model model) {
-        logger.info("A�adiendo <login> al modelo <model>");    	
+        logger.info("Añadiendo <login> al modelo <model>");    	
         model.addAttribute("user", new Usuario());
         
         logger.info("Devolviendo vista <loginTienda>");
